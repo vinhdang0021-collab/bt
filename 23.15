@@ -1,0 +1,26 @@
+!pip install folium
+
+import folium
+
+# Bản đồ trung tâm
+m = folium.Map(location=[10.762622, 106.682231], zoom_start=14)
+
+# Tuyến đường giả lập
+route = [
+    [10.7626, 106.6822],
+    [10.7650, 106.6850],
+    [10.7680, 106.6880],
+    [10.7700, 106.6900]
+]
+folium.PolyLine(route, color="blue", weight=4, popup="Tuyến đường").add_to(m)
+
+# Mô phỏng xe di chuyển theo thời gian (giả lập 4 bước)
+for step, pos in enumerate(route):
+    folium.Marker(
+        location=pos,
+        popup=f"Xe - Bước {step}",
+        icon=folium.Icon(color="red" if step==0 else "green")
+    ).add_to(m)
+
+# Hiển thị trong Colab
+m
